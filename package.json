@@ -1,7 +1,12 @@
 {
   "name": "node-harmony",
-  "version": "1.0.0",
+  "description": "Node.js endpoint for Harmony",
+  "version": "0.0.1",
+  "author": "Matthew Huie",
   "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
   "dependencies": {
     "async": "^2.1.5",
     "body-parser": "^1.17.0",
