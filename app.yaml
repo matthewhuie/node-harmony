@@ -1,4 +1,7 @@
 runtime: nodejs
 env: flex
 skip_files:
- - ^node_modules$
+  - ^node_modules$
+env_variables:
+  FOURSQUARE_CLIENT_ID: ''
+  FOURSQUARE_CLIENT_SECRET: ''

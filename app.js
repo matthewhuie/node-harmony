@@ -1,5 +1,5 @@
-clientID = ''
-clientSecret = ''
+clientID = process.env.FOURSQUARE_CLIENT_ID;
+clientSecret = process.env.FOURSQUARE_CLIENT_SECRET; 
 
 var async = require('async');
 var app = require('express')();
@@ -41,9 +41,11 @@ app.post('/harmonize', function (req, res) {
             row.matchedPhone = venues[0].contact.phone;
           }
         }
+        row.matchedStatus = response.statusCode;
         callback();
       });
     } else {
+      row.matchedStatus = 'invalid';
       callback();
     }
   }, function(error) {
