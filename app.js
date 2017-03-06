@@ -39,6 +39,7 @@ app.post('/harmonize', function (req, res) {
             row.matchedCountry = venues[0].location.country;
             row.matchedZip = venues[0].location.postalCode;
             row.matchedPhone = venues[0].contact.phone;
+            row.matchedCategory = venues[0].categories[0].name;
           }
         }
         row.matchedStatus = response.statusCode;
