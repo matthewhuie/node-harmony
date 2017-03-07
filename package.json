@@ -1,15 +1,15 @@
 {
   "name": "node-harmony",
   "description": "Node.js endpoint for Harmony",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "Matthew Huie",
-  "main": "app.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "node_modules/coffeescript/bin/coffee app.coffee"
   },
   "dependencies": {
     "async": "^2.1.5",
     "body-parser": "^1.17.0",
+    "coffeescript": "^1.12.4",
     "express": "^4.15.0",
     "request": "^2.80.0"
   }
