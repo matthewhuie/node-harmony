@@ -8,6 +8,7 @@ request = require 'request'
 
 app = express()
 app.use bp.json()
+app.use express.static 'web'
 
 app.post '/harmonize', (req, res) -> 
   async.each req.body, 
