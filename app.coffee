@@ -55,4 +55,7 @@ app.post '/harmonize', (req, res) ->
     (error) ->
       res.json req.body
 
+app.use (req, res) ->
+  res.sendStatus 404
+
 app.listen process.env.PORT or 8080
