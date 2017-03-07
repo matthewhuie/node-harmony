@@ -1,0 +1,44 @@
+body
+  background-color: #039BE5 
+  font-family: Raleway
+  transition: background-color 0.5s ease
+
+body.dragover
+  background-color: #5E35B1
+
+body.good
+  background-color: #43A047
+
+body.bad
+  background-color: #E53935
+
+#logo 
+  color: white
+  pointer-events: none
+  #title 
+    font-weight: bold
+    font-size: 5em
+    min-width: 100%
+
+.vertical-center
+  min-height: 100vh
+  display: flex
+  align-items: center
+
+.invert
+  -webkit-filter: invert(1)
+  filter: invert(1)
+
+#pbf
+  position: absolute
+  bottom: 0
+  right: 0
+  padding: 4px
+  pointer-events: none
+
+#dropzone
+  position: absolute
+  min-height: 100vh
+  min-width: 100vw
+  top: 0
+  left: 0
