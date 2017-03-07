@@ -40,7 +40,7 @@ $('#dropzone').on 'dragenter', (event) ->
             clearStatus()
             $('body').addClass 'good'
             $('#message').html 'Done!' 
-            csv = new Blob [Papa.unparse results.data],
+            csv = new Blob [Papa.unparse data],
               type: 'text/csv;charset=utf-8;'
             $('<a></a>').attr 'href', window.URL.createObjectURL csv
               .get(0).click()
