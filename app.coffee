@@ -13,7 +13,7 @@ app.use express.static 'web'
 app.post '/harmonize', (req, res) -> 
   async.each req.body, 
     (row, callback) -> 
-      if row.name != '' && row.latitude != '' && row.latitude != 0 && row.longitude != '' && row.longitude != 0
+      if row.name != '' and row.latitude != '' and row.latitude != 0 and row.longitude != '' and row.longitude != 0
         url = 'https://api.foursquare.com/v2/venues/search'
         qs = 
           client_id: clientID
@@ -33,7 +33,7 @@ app.post '/harmonize', (req, res) ->
           url: url
           qs: qs
           (error, response, body) -> 
-            if (response.statusCode == 200)
+            if response.statusCode == 200
               data = JSON.parse body
               venues = data.response.venues or null
               if (venues? and venues.length > 0)
