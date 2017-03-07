@@ -29,15 +29,21 @@ $('#dropzone').on 'dragenter', (event) ->
     complete: (results) ->
       if _.size(_.intersection results.meta.fields, ['name', 'latitude', 'longitude']) == 3
         $('#dropzone').hide()
-        $.post '/harmonize', JSON.stringify(results.data), (data) ->
-          $('#dropzone').show()
-          clearStatus()
-          $('body').addClass 'good'
-          $('#message').html 'Done!' 
-          csv = new Blob [Papa.unparse results.data],
-            type: 'text/csv;charset=utf-8;'
-          $('<a></a>').attr 'href', window.URL.createObjectURL csv
-            .get(0).click()
+        $.ajax 
+          url: '/harmonize'
+          data: JSON.stringify(results.data)
+          type: 'POST'
+          dataType: 'json'
+          contentType: 'application/json; charset=utf-8'
+          success: (data) ->
+            $('#dropzone').show()
+            clearStatus()
+            $('body').addClass 'good'
+            $('#message').html 'Done!' 
+            csv = new Blob [Papa.unparse results.data],
+              type: 'text/csv;charset=utf-8;'
+            $('<a></a>').attr 'href', window.URL.createObjectURL csv
+              .get(0).click()
       else
         clearStatus()
         $('body').addClass 'bad'
