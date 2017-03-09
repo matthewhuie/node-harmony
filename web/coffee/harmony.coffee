@@ -27,7 +27,7 @@ $('#dropzone').on 'dragenter', (event) ->
       $('body').addClass 'bad'
       $('#message').html 'Invalid file'
     complete: (results) ->
-      if _.size(_.intersection results.meta.fields, ['name', 'city', 'state', 'latitude', 'longitude']) >= 3
+      if _.size(_.intersection results.meta.fields, ['name', 'latitude', 'longitude']) == 3
         $('#dropzone').hide()
         $.ajax 
           url: '/harmonize'
