@@ -4,7 +4,8 @@
   "version": "0.0.2",
   "author": "Matthew Huie",
   "scripts": {
-    "start": "node_modules/coffeescript/bin/coffee app.coffee"
+    "start": "coffee app.coffee",
+    "prepublish": "node-sass --output-style compressed -o web/css -r web/sass; coffee -c -o web/js web/coffee"
   },
   "dependencies": {
     "async": "^2.1.5",
@@ -12,5 +13,8 @@
     "coffeescript": "^1.12.4",
     "express": "^4.15.0",
     "request": "^2.80.0"
+  },
+  "devDependencies": {
+    "node-sass": "^4.5.0"
   }
 }
