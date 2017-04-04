@@ -7,7 +7,8 @@ bp = require 'body-parser'
 request = require 'request'
 
 app = express()
-app.use bp.json()
+app.use bp.json
+  limit: '50mb'
 app.use express.static 'web'
 
 app.post '/harmonize', (req, res) -> 
