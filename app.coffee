@@ -13,15 +13,22 @@ app.use express.static 'web'
 app.post '/harmonize', (req, res) -> 
   async.each req.body, 
     (row, callback) -> 
-      if row.name != '' and row.latitude != '' and row.latitude != 0 and row.longitude != '' and row.longitude != 0
+      if row.name != '' 
         url = 'https://api.foursquare.com/v2/venues/search'
+        if row.latitude != '' and row.latitude != 0 and row.longitude != '' and row.longitude != 0
+          ll = row.latitude + ',' + row.longitude
+          near = '' 
+        else
+          ll = ''
+          near = row.city + ',' + row.state
         qs = 
           client_id: clientID
           client_secret: clientSecret
           v: '20170101'
           intent: 'match'
           name: row.name
-          ll: row.latitude + ',' + row.longitude
+          ll: ll 
+          near: near
           address: row.address || ''
           city: row.city || ''
           state: row.state || ''
