@@ -4,8 +4,9 @@
   "version": "0.0.2",
   "author": "Matthew Huie",
   "scripts": {
-    "start": "coffee app.coffee",
-    "prepublish": "node-sass --output-style compressed -o web/css -r web/sass; coffee -c -o web/js web/coffee"
+    "prepublish": "node-sass --output-style compressed -o web/css -r web/sass; coffee -c -o web/js web/coffee",
+    "heroku-postbuild": "npm run prepublish",
+    "start": "coffee app.coffee"
   },
   "dependencies": {
     "async": "^2.1.5",
