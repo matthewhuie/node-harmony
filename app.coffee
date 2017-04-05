@@ -26,7 +26,7 @@ app.post '/harmonize', (req, res) ->
           v: '20170101'
           intent: 'match'
           name: row.name
-          ll: ll || ''
+          ll: ll || '0,0'
           near: near || ''
           address: row.address || ''
           city: row.city || ''
