@@ -16,11 +16,9 @@ app.post '/harmonize', (req, res) ->
     (row, callback) -> 
       if row.name != '' 
         url = 'https://api.foursquare.com/v2/venues/search'
-        if row.latitude != '' and row.latitude != 0 and row.longitude != '' and row.longitude != 0
-          ll = row.latitude + ',' + row.longitude
-          near = '' 
-        else
-          ll = ''
+        if row.latitude != '' and row.latitude != 0 and row.longitude != '' and row.longitude != 0 
+          ll = row.latitude + ',' + row.longitude 
+        else 
           near = row.city + ',' + row.state
         qs = 
           client_id: clientID
@@ -28,8 +26,8 @@ app.post '/harmonize', (req, res) ->
           v: '20170101'
           intent: 'match'
           name: row.name
-          ll: ll 
-          near: near
+          ll: ll || ''
+          near: near || ''
           address: row.address || ''
           city: row.city || ''
           state: row.state || ''
