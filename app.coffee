@@ -16,7 +16,7 @@ app.post '/harmonize', (req, res) ->
     (row, callback) -> 
       if row.name != '' 
         url = 'https://api.foursquare.com/v2/venues/search'
-        if row.latitude != '' and row.latitude != 0 and row.longitude != '' and row.longitude != 0 
+        if row.latitude? and row.latitude != 0 and row.longitude? and row.longitude != 0 
           ll = row.latitude + ',' + row.longitude 
         else 
           near = row.city + ',' + row.state
@@ -39,20 +39,24 @@ app.post '/harmonize', (req, res) ->
           url: url
           qs: qs
           (error, response, body) -> 
-            if response.statusCode == 200
-              data = JSON.parse body
-              venues = data.response.venues or null
-              if (venues? and venues.length > 0)
-                row.matchedID = venues[0].id
-                row.matchedName = venues[0].name
-                row.matchedAddress = venues[0].location.address
-                row.matchedCity = venues[0].location.city
-                row.matchedState = venues[0].location.state
-                row.matchedCountry = venues[0].location.country
-                row.matchedZip = venues[0].location.postalCode
-                row.matchedPhone = venues[0].contact.phone
+            if response?
+              if response.statusCode == 200
+                data = JSON.parse body
+                venues = data.response.venues or null
+                if (venues? and venues.length > 0)
+                  row.matchedID = venues[0].id
+                  row.matchedName = venues[0].name
+                  row.matchedAddress = venues[0].location.address
+                  row.matchedCity = venues[0].location.city
+                  row.matchedState = venues[0].location.state
+                  row.matchedCountry = venues[0].location.country
+                  row.matchedZip = venues[0].location.postalCode
+                  row.matchedPhone = venues[0].contact.phone
+                  row.matchedCategory = venues[0].categories[0].id if venues[0].categories[0]?
+              row.matchedStatus = response.statusCode
+            else
+              row.matchedStatus = 'failed'
 
-            row.matchedStatus = response.statusCode
             callback()
       else
         row.matchedStatus = 'invalid'
