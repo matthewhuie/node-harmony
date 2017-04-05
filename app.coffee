@@ -52,7 +52,7 @@ app.post '/harmonize', (req, res) ->
                   row.matchedCountry = venues[0].location.country
                   row.matchedZip = venues[0].location.postalCode
                   row.matchedPhone = venues[0].contact.phone
-                  row.matchedCategory = venues[0].categories[0].id if venues[0].categories[0]?
+                  row.matchedCategory = venues[0].categories[0].name if venues[0].categories[0]?
               row.matchedStatus = response.statusCode
             else
               row.matchedStatus = 'failed'
