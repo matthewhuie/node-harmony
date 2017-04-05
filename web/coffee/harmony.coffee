@@ -1,6 +1,3 @@
-$(document).ajaxStart ->
-  Pace.restart()
-
 $('#dropzone').on 'dragenter', (event) ->
   event.stopPropagation()
   event.preventDefault()
@@ -29,21 +26,22 @@ $('#dropzone').on 'dragenter', (event) ->
     complete: (results) ->
       if _.size(_.intersection results.meta.fields, ['name', 'city', 'state', 'latitude', 'longitude']) >= 3
         $('#dropzone').hide()
-        $.ajax 
-          url: '/harmonize'
-          data: JSON.stringify(results.data)
-          type: 'POST'
-          dataType: 'json'
-          contentType: 'application/json; charset=utf-8'
-          success: (data) ->
-            $('#dropzone').show()
-            clearStatus()
-            $('body').addClass 'good'
-            $('#message').html 'Done!' 
-            csv = new Blob [Papa.unparse data],
-              type: 'text/csv;charset=utf-8;'
-            $('<a></a>').attr 'href', window.URL.createObjectURL csv
-              .get(0).click()
+        Pace.track ->
+          $.ajax 
+            url: '/harmonize'
+            data: JSON.stringify(results.data)
+            type: 'POST'
+            dataType: 'json'
+            contentType: 'application/json; charset=utf-8'
+            success: (data) ->
+              $('#dropzone').show()
+              clearStatus()
+              $('body').addClass 'good'
+              $('#message').html 'Done!' 
+              csv = new Blob [Papa.unparse data],
+                type: 'text/csv;charset=utf-8;'
+              $('<a></a>').attr 'href', window.URL.createObjectURL csv
+                .get(0).click()
       else
         clearStatus()
         $('body').addClass 'bad'
