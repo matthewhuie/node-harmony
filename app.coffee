@@ -1,6 +1,3 @@
-clientID = process.env.FOURSQUARE_CLIENT_ID
-clientSecret = process.env.FOURSQUARE_CLIENT_SECRET 
-
 async = require 'async'
 express = require 'express'
 bp = require 'body-parser'
@@ -12,8 +9,18 @@ app.use bp.json
 app.use express.static 'web'
 
 app.post '/harmonize', (req, res) -> 
-  async.each req.body, 
+  async.eachLimit req.body, 20,
     (row, callback) -> 
+      row.matchedID = '' 
+      row.matchedName = ''
+      row.matchedAddress = ''
+      row.matchedCity = ''
+      row.matchedState = ''
+      row.matchedCountry = ''
+      row.matchedZip = ''
+      row.matchedPhone = ''
+      row.matchedCategory = ''
+
       if row.name != '' 
         url = 'https://api.foursquare.com/v2/venues/search'
         if row.latitude? and row.latitude != 0 and row.longitude? and row.longitude != 0 
@@ -21,8 +28,8 @@ app.post '/harmonize', (req, res) ->
         else 
           near = row.city + ',' + row.state
         qs = 
-          client_id: clientID
-          client_secret: clientSecret
+          client_id: process.env.FOURSQUARE_CLIENT_ID 
+          client_secret: process.env.FOURSQUARE_CLIENT_SECRET
           v: '20170101'
           intent: 'match'
           name: row.name
@@ -56,7 +63,6 @@ app.post '/harmonize', (req, res) ->
               row.matchedStatus = response.statusCode
             else
               row.matchedStatus = 'failed'
-
             callback()
       else
         row.matchedStatus = 'invalid'
