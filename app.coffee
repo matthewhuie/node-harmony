@@ -1,6 +1,3 @@
-clientID = process.env.FOURSQUARE_CLIENT_ID
-clientSecret = process.env.FOURSQUARE_CLIENT_SECRET 
-
 async = require 'async'
 express = require 'express'
 bp = require 'body-parser'
@@ -13,6 +10,16 @@ app.use express.static 'web'
 
 app.post '/harmonize', (req, res) -> 
   async.each req.body, 
+    row.matchedID = '' 
+    row.matchedName = ''
+    row.matchedAddress = ''
+    row.matchedCity = ''
+    row.matchedState = ''
+    row.matchedCountry = ''
+    row.matchedZip = ''
+    row.matchedPhone = ''
+    row.matchedCategory = ''
+  
     (row, callback) -> 
       if row.name != '' 
         url = 'https://api.foursquare.com/v2/venues/search'
@@ -21,8 +28,8 @@ app.post '/harmonize', (req, res) ->
         else 
           near = row.city + ',' + row.state
         qs = 
-          client_id: clientID
-          client_secret: clientSecret
+          client_id: process.env.FOURSQUARE_CLIENT_ID 
+          client_secret: process.env.FOURSQUARE_CLIENT_SECRET 
           v: '20170101'
           intent: 'match'
           name: row.name
