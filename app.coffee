@@ -10,17 +10,17 @@ app.use express.static 'web'
 
 app.post '/harmonize', (req, res) -> 
   async.each req.body, 
-    row.matchedID = '' 
-    row.matchedName = ''
-    row.matchedAddress = ''
-    row.matchedCity = ''
-    row.matchedState = ''
-    row.matchedCountry = ''
-    row.matchedZip = ''
-    row.matchedPhone = ''
-    row.matchedCategory = ''
-  
     (row, callback) -> 
+      row.matchedID = '' 
+      row.matchedName = ''
+      row.matchedAddress = ''
+      row.matchedCity = ''
+      row.matchedState = ''
+      row.matchedCountry = ''
+      row.matchedZip = ''
+      row.matchedPhone = ''
+      row.matchedCategory = ''
+
       if row.name != '' 
         url = 'https://api.foursquare.com/v2/venues/search'
         if row.latitude? and row.latitude != 0 and row.longitude? and row.longitude != 0 
